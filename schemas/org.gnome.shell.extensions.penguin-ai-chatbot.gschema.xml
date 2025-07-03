@@ -32,6 +32,11 @@
         <summary>Open Router API Key</summary>
         <description>Your Open Router API key. Required to use Open Router models.</description>
     </key>
+    <key name="deepseek-api-key" type="s">
+        <default>""</default>
+        <summary>DeepSeek API Key</summary>
+        <description>Your DeepSeek API key. Required to use DeepSeek models.</description>
+    </key>
 
 
 
@@ -54,6 +59,11 @@
         <default>"gemini-2.0-flash"</default>
         <summary>Gemini Model</summary>
         <description>The Gemini model to use for chat.</description>
+    </key>
+    <key name="deepseek-model" type="s">
+        <default>"deepseek-chat"</default>
+        <summary>DeepSeek Model</summary>
+        <description>The DeepSeek model to use for chat.</description>
     </key>
 
 

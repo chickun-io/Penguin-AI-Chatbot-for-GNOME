@@ -43,6 +43,7 @@ This extension now supports multiple LLM providers.  You will need to obtain an 
 *   **OpenAI:** Sign up and get your API key from [here](https://platform.openai.com/api-keys).
 *   **Gemini:** Sign up and get your API key from [here](https://makersuite.google.com/app/apikey).
 *   **OpenRouter** Sign up and get your API key from [here](https://openrouter.ai/settings/keys)
+*   **DeepSeek**   Sign up and get your API key from [here](https://deepseek.com)
 
 Once you have your API key(s):
 
@@ -59,7 +60,7 @@ You can now use the extension! Open the chat window by clicking the Penguin icon
 
 # Features
 
-*   **Multiple LLM Providers:** Choose between Anthropic, OpenAI, Gemini, and OpenRouter.
+*   **Multiple LLM Providers:** Choose between Anthropic, OpenAI, Gemini, OpenRouter and DeepSeek.
 *   **Customizable Models:** Select different models for each provider.
 *   **Chat History:** Remembers your conversation history.
 *   **Customizable Appearance:** Change the background and text colors for messages.

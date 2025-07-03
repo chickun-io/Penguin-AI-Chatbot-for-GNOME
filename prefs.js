@@ -89,12 +89,14 @@ class SettingsUI {
         this.defaultOpenAIKey = this.schema.get_string(SettingsKeys.OPENAI_API_KEY);
         this.defaultGeminiKey = this.schema.get_string(SettingsKeys.GEMINI_API_KEY);
         this.defaultOpenRouterKey = this.schema.get_string(SettingsKeys.OPENROUTER_API_KEY);
+        this.defaultDeepSeekKey = this.schema.get_string(SettingsKeys.DEEPSEEK_API_KEY);
 
         // Models
         this.defaultModel = this.schema.get_string(SettingsKeys.ANTHROPIC_MODEL);
         this.defaultOpenAIModel = this.schema.get_string(SettingsKeys.OPENAI_MODEL);
         this.defaultGeminiModel = this.schema.get_string(SettingsKeys.GEMINI_MODEL);
         this.defaultOpenRouterModel = this.schema.get_string(SettingsKeys.OPENROUTER_MODEL);
+        this.defaultDeepSeekModel = this.schema.get_string(SettingsKeys.DEEPSEEK_MODEL);
 
         // Colors
         this.defaultHumanColor = this.schema.get_string(SettingsKeys.HUMAN_MESSAGE_COLOR);
@@ -122,6 +124,7 @@ class SettingsUI {
         providerList.append(_("OpenAI"));
         providerList.append(_("Gemini"));
         providerList.append(_("OpenRouter"));
+        providerList.append(_("DeepSeek"));
 
         this.provider = new Gtk.DropDown({
             model:      providerList,
@@ -135,6 +138,7 @@ class SettingsUI {
             LLMProviders.OPENAI,
             LLMProviders.GEMINI,
             LLMProviders.OPENROUTER,
+            LLMProviders.DEEPSEEK,
         ];
 
         for (let i = 0; i < providers.length; i++) {
@@ -231,6 +235,25 @@ class SettingsUI {
             label: _("Get OpenRouter API Key"),
             uri:   "https://openrouter.ai/settings/keys",
         });
+        
+        // DeepSeek API Key
+        const labelDeepSeekAPI = new Gtk.Label({
+            label:          _("DeepSeek API Key:"),
+            halign:         Gtk.Align.START,
+            tooltip_text:    _("Enter your DeepSeek API Key Here"),
+        });
+
+        this.deepSeekApiKey = new Gtk.Entry({
+            buffer:         newGtk.EntryBuffer(),
+            visibility:     false,
+        });
+        this.deepSeekApiKey.set_placeholder_text(_("Paste your DeepSeek API Key"));
+        this.deepSeekApiKey.set_text(this.defaultDeepSeekKey);
+
+        const howToDeepSeekAPI = new Gtk.LinkButton({
+            label:          _("Get DeepSeek API Key"),
+            url:            "https://deepseek.com",
+        })
 
         // Add to grid
         this.main.attach(labelAnthropicAPI, 0, 1, 1, 1);
@@ -248,6 +271,10 @@ class SettingsUI {
         this.main.attach(labelOpenRouterAPI, 0, 4, 1, 1);
         this.main.attach(this.openRouterApiKey, 2, 4, 2, 1);
         this.main.attach(howToOpenRouterAPI, 4, 4, 1, 1);
+
+        this.main.attach(labelDeepSeekAPI, 0, 5, 1, 1);
+        this.main.attach(this.deepSeekApiKey, 2, 5, 2, 1);
+        this.main.attach(howToDeepSeekAPI, 4, 5, 1, 1);
     }
 
     /**
@@ -327,22 +354,44 @@ class SettingsUI {
             uri:   "https://openrouter.ai/models",
         });
 
+        // DeepSeek Model
+        const labelDeepSeekModel = new Gtk.Label({
+            label:        _("DeepSeek Model:"),
+            halign:       Gtk.Align.START,
+            tooltip_text: _("Specify the DeepSeek model you want to use. Example: meta-llama/llama-3.3-70b-instruct:free"),
+        });
+
+        this.deepSeekModel = new Gtk.Entry({
+            buffer: new Gtk.EntryBuffer(),
+        });
+        this.deepSeekModel.set_placeholder_text(_("e.g., meta-llama/llama-3.3-70b-instruct:free"));
+        this.deepSeekModel.set_text(this.defaultDeepSeekModel);
+
+        const howToDeepSeekModel = new Gtk.LinkButton({
+            label: _("Available DeepSeek Models"),
+            uri:   "https://deepseek.com",
+        });
+
         // Add to grid
-        this.main.attach(labelModel, 0, 5, 1, 1);
-        this.main.attach(this.model, 2, 5, 2, 1);
-        this.main.attach(howToModel, 4, 5, 1, 1);
+        this.main.attach(labelModel, 0, 6, 1, 1);
+        this.main.attach(this.model, 2, 6, 2, 1);
+        this.main.attach(howToModel, 4, 6, 1, 1);
 
-        this.main.attach(labelOpenAIModel, 0, 6, 1, 1);
-        this.main.attach(this.openaiModel, 2, 6, 2, 1);
-        this.main.attach(howToOpenAIModel, 4, 6, 1, 1);
+        this.main.attach(labelOpenAIModel, 0, 7, 1, 1);
+        this.main.attach(this.openaiModel, 2, 7, 2, 1);
+        this.main.attach(howToOpenAIModel, 4, 7, 1, 1);
 
-        this.main.attach(labelGeminiModel, 0, 7, 1, 1);
-        this.main.attach(this.geminiModel, 2, 7, 2, 1);
-        this.main.attach(howToGeminiModel, 4, 7, 1, 1);
+        this.main.attach(labelGeminiModel, 0, 8, 1, 1);
+        this.main.attach(this.geminiModel, 2, 8, 2, 1);
+        this.main.attach(howToGeminiModel, 4, 8, 1, 1);
 
-        this.main.attach(labelOpenRouterModel, 0, 8, 1, 1);
-        this.main.attach(this.openRouterModel, 2, 8, 2, 1);
-        this.main.attach(howToOpenRouterModel, 4, 8, 1, 1);
+        this.main.attach(labelOpenRouterModel, 0, 9, 1, 1);
+        this.main.attach(this.openRouterModel, 2, 9, 2, 1);
+        this.main.attach(howToOpenRouterModel, 4, 9, 1, 1);
+
+        this.main.attach(labelDeepSeekModel, 0, 10, 1, 1);
+        this.main.attach(this.deepSeekModel, 2, 10, 2, 1);
+        this.main.attach(howToDeepSeekModel, 4, 10, 1, 1);
     }
 
     /**
@@ -420,17 +469,17 @@ class SettingsUI {
         this.llmTextColor.set_rgba(llmTextColorGTK);
 
         // Add to grid
-        this.main.attach(labelHumanColor, 0, 9, 1, 1);
-        this.main.attach(this.humanColor, 2, 9, 2, 1);
+        this.main.attach(labelHumanColor, 0, 11, 1, 1);
+        this.main.attach(this.humanColor, 2, 11, 2, 1);
 
-        this.main.attach(labelHumanTextColor, 0, 10, 1, 1);
-        this.main.attach(this.humanTextColor, 2, 10, 2, 1);
+        this.main.attach(labelHumanTextColor, 0, 12, 1, 1);
+        this.main.attach(this.humanTextColor, 2, 12, 2, 1);
 
-        this.main.attach(labelLLMColor, 0, 11, 1, 1);
-        this.main.attach(this.llmColor, 2, 11, 2, 1);
+        this.main.attach(labelLLMColor, 0, 13, 1, 1);
+        this.main.attach(this.llmColor, 2, 13, 2, 1);
 
-        this.main.attach(labelLLMTextColor, 0, 12, 1, 1);
-        this.main.attach(this.llmTextColor, 2, 12, 2, 1);
+        this.main.attach(labelLLMTextColor, 0, 14, 1, 1);
+        this.main.attach(this.llmTextColor, 2, 14, 2, 1);
     }
 
     /**
@@ -490,9 +539,9 @@ class SettingsUI {
         });
 
         // Add to grid
-        this.main.attach(labelShortcut, 0, 13, 1, 1);
-        this.main.attach(this.shortcutLabel, 2, 13, 1, 1);
-        this.main.attach(this.shortcutButton, 3, 13, 1, 1);
+        this.main.attach(labelShortcut, 0, 15, 1, 1);
+        this.main.attach(this.shortcutLabel, 2, 15, 1, 1);
+        this.main.attach(this.shortcutButton, 3, 15, 1, 1);
     }
 
     /**
@@ -513,8 +562,8 @@ class SettingsUI {
         this.saveButton.connect("clicked", () => this._saveSettings());
 
         // Add to grid
-        this.main.attach(this.saveButton, 2, 14, 1, 1);
-        this.main.attach(this.statusLabel, 0, 15, 4, 1);
+        this.main.attach(this.saveButton, 2, 16, 1, 1);
+        this.main.attach(this.statusLabel, 0, 17, 4, 1);
     }
 
     /**
@@ -539,12 +588,14 @@ class SettingsUI {
         this.schema.set_string(SettingsKeys.OPENAI_API_KEY, this.openaiApiKey.get_buffer().get_text());
         this.schema.set_string(SettingsKeys.GEMINI_API_KEY, this.geminiApiKey.get_buffer().get_text());
         this.schema.set_string(SettingsKeys.OPENROUTER_API_KEY, this.openRouterApiKey.get_buffer().get_text());
+        this.schema.set_string(SettingsKeys.DEEPSEEK_API_KEY, this.openRouterApiKey.get_buffer().get_text());
 
         // Save models
         this.schema.set_string(SettingsKeys.ANTHROPIC_MODEL, this.model.get_buffer().get_text());
         this.schema.set_string(SettingsKeys.OPENAI_MODEL, this.openaiModel.get_buffer().get_text());
         this.schema.set_string(SettingsKeys.GEMINI_MODEL, this.geminiModel.get_buffer().get_text());
         this.schema.set_string(SettingsKeys.OPENROUTER_MODEL, this.openRouterModel.get_buffer().get_text());
+        this.schema.set_string(SettingsKeys.DEEPSEEK_MODEL, this.openRouterModel.get_buffer().get_text());
 
         // Save colors
         this.schema.set_string(SettingsKeys.HUMAN_MESSAGE_COLOR, `${this.humanColor.get_rgba().to_string()}`);
